@@ -1,17 +1,33 @@
+#' phds_by_field.R
+#' 
+#' R script for 19 February 2019 #TidyTuesday 
+#'
+
+
+# Libraries ---------------------------------------------------------------
+
 library(tidyverse)
 library(collapsibleTree)
 library(skimr)
 library(magrittr)
 library(tidyquant)
 
-# define
+
+# Configuration -----------------------------------------------------------
+
+# define source url
 source_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-19/phd_by_field.csv"
+
+
+# Gather ------------------------------------------------------------------
 
 # read + tidy
 phd_by_field_tbl <- read_csv(source_url) %>%
   replace_na(list(n_phds = 0)) %>%
   mutate_if(is.character, factor)
   
+
+# Visualise ---------------------------------------------------------------
 
 # collapsible tree for top two levels in hierarchy
 phd_by_field_tbl %>%
@@ -28,7 +44,7 @@ phd_by_field_tbl %>%
     collapsed = FALSE
   )
 
-
+# heat map Heatmap for number of PhDs in Agricultural sciences and natural resources
 phd_by_field_tbl %>%
   mutate(
     date = lubridate::make_date(year=year)
@@ -47,6 +63,7 @@ phd_by_field_tbl %>%
     caption = "By @benmoretti"
   )
 
+# Annual relative difference plot of PhDs in Agricultural sciences and natural resources
 phd_by_field_tbl %>%
   group_by(broad_field, major_field, field) %>%
   arrange(year) %>%
