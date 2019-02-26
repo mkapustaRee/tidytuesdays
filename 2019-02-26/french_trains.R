@@ -33,6 +33,8 @@ paris_2017_trips <- trains_raw %>%
 # check that it's in alluvial format - should return true
 is_alluvia_form(paris_2017_trips, axes = 1:2, silent = TRUE)  
 
+# Plot --------------------------------------------------------------------
+
 # create alluvial plot
 paris_2017_trips %>%
   ggplot(aes(y = total_num_trips, axis1 = departure_station, axis2 = arrival_station)) +
@@ -52,6 +54,9 @@ paris_2017_trips %>%
     subtitle = "Source: SNCF",
     caption = "#tidytuesday by @benmoretti"
   )
+
+# Output ------------------------------------------------------------------
+
 
 #save png
 ggsave("2019-02-26/paris_july_2017_trains.png", units = "mm", width=297, height=210)
