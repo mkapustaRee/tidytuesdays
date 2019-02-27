@@ -8,11 +8,9 @@
 # Libraries -----------------------------------------------------------------
 
 library(tidyverse)
-library(skimr)
 library(lubridate)
-library(GGally)
 library(ggalluvial)
-
+library(gganimate)
 
 # Gather ------------------------------------------------------------------
 
@@ -28,7 +26,7 @@ paris_2017_trips <- trains_raw %>%
     month == 7,
     str_detect(departure_station, "PARIS")
   ) %>% 
-  select(departure_station, arrival_station, total_num_trips) 
+  select(departure_station, arrival_station, total_num_trips, month) 
 
 # check that it's in alluvial format - should return true
 is_alluvia_form(paris_2017_trips, axes = 1:2, silent = TRUE)  
@@ -53,7 +51,8 @@ paris_2017_trips %>%
     y = "Total Number of Trips",
     subtitle = "Source: SNCF",
     caption = "#tidytuesday by @benmoretti"
-  )
+  ) 
+
 
 # Output ------------------------------------------------------------------
 
